@@ -1,0 +1,41 @@
+<div (click)="onCrown()" class="center-horizontal down-5">
+  <img src="../../../assets/img/crown.svg" />
+</div>
+
+<div
+  *ngIf="vm$ | async as vm; else loading"
+  class="table-container width-maxed-600"
+>
+  <mat-table #table [dataSource]="vm.players || []" class="table-markup">
+    <ng-container matColumnDef="rank">
+      <mat-header-cell *matHeaderCellDef>Rank</mat-header-cell>
+      <mat-cell *matCellDef="let player; let i = index">
+        {{ i + 1 }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="player">
+      <mat-header-cell *matHeaderCellDef>Player</mat-header-cell>
+      <mat-cell
+        class="player-linked"
+        *matCellDef="let player"
+        routerLink="/profile"
+        [queryParams]="{ id: player.id }"
+      >
+        {{ player.firstName }} {{ player.lastName }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="points">
+      <mat-header-cell *matHeaderCellDef>Points</mat-header-cell>
+      <mat-cell *matCellDef="let player"> {{ player.elo.rating }} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
+</div>
+
+<ng-template #loading>
+  <mat-spinner diameter="40"></mat-spinner>
+</ng-template>

@@ -1,0 +1,32 @@
+<ng-container *ngIf="surfaces$ | async as surfaces; else loading">
+  <div>
+    <mat-form-field appearance="standard" class="width-maxed-input">
+      <mat-label>Surface</mat-label>
+      <input
+        type="text"
+        matInput
+        name="surfaceId"
+        NgModel
+        required
+        [ngModel]="surface"
+        (input)="onSurfaceSearch($event.target.value)"
+        [disabled]="disabled"
+        [matAutocomplete]="surfacesAuto"
+      />
+      <mat-autocomplete
+        autoActiveFirstOption
+        #surfacesAuto="matAutocomplete"
+        [displayWith]="onSurfaceDisplay"
+        (optionSelected)="onSurfaceSelect($event.option.value)"
+      >
+        <mat-option *ngFor="let surface of surfaces" [value]="surface">
+          {{ surface.name }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </div>
+</ng-container>
+
+<ng-template #loading>
+  <mat-spinner diameter="40"></mat-spinner>
+</ng-template>

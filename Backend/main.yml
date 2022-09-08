@@ -1,0 +1,102 @@
+name: $(Build.SourceBranchName)_$(date:yyyyMMdd)_$(rev:.rrr)
+
+trigger:
+- master
+- develop
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  buildConfiguration: 'Release'
+  buildPlatform: 'any cpu'
+  projectName: 'DTL'
+
+stages:
+- stage: CICD
+  displayName: Build, test and publish the app
+  jobs:
+  - job: Build
+    displayName: Build, Test, Publish
+    steps:
+    - task: NodeTool@0
+      displayName: 'Install Node'
+      inputs:
+        versionSpec: '16.x'
+
+    - task: CmdLine@2
+      displayName: 'Restore Frontend'
+      inputs:
+        script: 'npm ci'
+        workingDirectory: Frontend/frontend
+
+    - task: CmdLine@2
+      displayName: 'Build Frontend'
+      inputs:
+        script: 'npm run ng build -- --prod'
+        workingDirectory: Frontend/frontend
+
+    - task: UseDotNet@2
+      displayName: 'Use .NET6'
+      inputs:
+        packageType: 'sdk'
+        version: '6.x'
+        includePreviewVersions: true
+
+    - task: DotNetCoreCLI@2
+      displayName: 'Build Backend'
+      inputs:
+        command: 'build'
+        projects: '**/*.csproj'
+        arguments: '--configuration $(buildConfiguration)'
+
+    - task: DotNetCoreCLI@2
+      displayName: 'Unit Test Backend'
+      inputs:
+        command: test
+        projects: '**/*[Tt]ests/*[Uu]nit[Tt]ests.csproj'
+        arguments: '--configuration $(buildConfiguration)'
+
+    - task: CmdLine@2
+      displayName: 'Azurite Install'
+      inputs:
+        script: 'npm install azurite -g'
+
+    - task: CmdLine@2
+      displayName: 'Azurite Run'
+      inputs:
+        script: 'start /b azurite --silent'
+
+    - task: DotNetCoreCLI@2
+      displayName: '2.2 Integration Test'
+      inputs:
+        command: test
+        projects: '**/*[Tt]ests/*[Ii]ntegration[Tt]ests.csproj'
+        arguments: '--configuration $(buildConfiguration)'
+
+    - task: DotNetCoreCLI@2
+      displayName: '3 Publish'
+      inputs:
+        command: publish
+        publishWebProjects: True
+        arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+        zipAfterPublish: True
+
+    - task: PublishBuildArtifacts@1
+      displayName: '4 Publish Artifact'
+      condition: succeededOrFailed()
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: $(ProjectName)
+
+    - task: AzureWebApp@1
+      displayName: '5 Deploy'
+      condition: and(
+        succeeded(),
+        ne(variables['Build.Reason'], 'PullRequest'),
+        eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+      inputs:
+        appType: webApp
+        azureSubscription: 'ServiceConnectionDTL'
+        appName: 'dikketennislijst'
+        package: $(Build.ArtifactStagingDirectory)/**/*WebApi.zip

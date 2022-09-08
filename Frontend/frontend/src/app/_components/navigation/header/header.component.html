@@ -1,0 +1,35 @@
+<mat-toolbar>
+  <button class="toolbar-center" mat-button routerLink="ranking">
+    <img id="logo" src="../../../../assets/img/crown.svg" />
+  </button>
+
+  <span id="spacer"></span>
+
+  <ng-container *ngIf="user$ | async as user; else notAuthenticated">
+    <button mat-button [matMenuTriggerFor]="usermenu">
+      {{ user.firstName }}
+    </button>
+    <mat-menu #usermenu="matMenu">
+      <button
+        mat-menu-item
+        routerLink="profile"
+        [queryParams]="{ id: user.id }"
+        routerLinkActive="mat-accent"
+      >
+        Profile
+      </button>
+      <button mat-menu-item routerLink="password-change">Settings</button>
+      <button mat-menu-item routerLink="test">Test</button>
+      <button mat-menu-item (click)="onLogout()">Log out</button>
+    </mat-menu>
+  </ng-container>
+
+  <ng-template #notAuthenticated>
+    <button mat-button routerLink="login" routerLinkActive="mat-accent">
+      Log in
+    </button>
+    <button mat-button routerLink="register" routerLinkActive="mat-accent">
+      Sign up
+    </button>
+  </ng-template>
+</mat-toolbar>

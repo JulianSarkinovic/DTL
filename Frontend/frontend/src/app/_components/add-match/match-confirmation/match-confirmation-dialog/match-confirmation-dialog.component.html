@@ -1,0 +1,32 @@
+<div class="main-container">
+  <h1 class="title">Edit the match</h1>
+  <div class="message">
+    <p>
+      If something about the result wasn't right, you can edit the match. Your
+      opponent will then receive the editted match for confirmation.
+    </p>
+    <p>
+      If you don't recognize it at all, you can also choose to remove it. We'll
+      also flag {{ opponentName || "your opponent" }} for creating the
+      non-existing match.
+    </p>
+  </div>
+  <div class="button-group">
+    <button
+      mat-flat-button
+      color="secondary"
+      class="confirm-button"
+      (click)="onDecline()"
+    >
+      Remove
+    </button>
+    <button
+      mat-flat-button
+      color="primary"
+      class="confirm-button"
+      (click)="onEdit()"
+    >
+      Edit
+    </button>
+  </div>
+</div>

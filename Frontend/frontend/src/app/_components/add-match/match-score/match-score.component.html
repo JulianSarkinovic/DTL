@@ -1,0 +1,154 @@
+<div *ngIf="user$ | async as user" class="container-main">
+  <div
+    class="container-set"
+    *ngFor="let _ of setInputs; index as setIndex"
+    [class.columns-disabled]="isDisabled(setIndex)"
+    [class.maxed-width-on-desktop]="setIndex !== 0"
+  >
+    <div class="row row-top">
+      <div
+        class="cell cell-player cell-player-top hide-on-mobile"
+        [class.hide-on-desktop]="setIndex !== 0"
+      ></div>
+      <div class="cell cell-set">
+        Set {{ setIndex + 1 }}
+        <span
+          class="error-info"
+          *ngIf="isInputValid(setIndex) === false"
+          (click)="notifyIfSetIsInvalid(setIndex)"
+          >(i)</span
+        >
+      </div>
+    </div>
+    <div class="row">
+      <div class="cell row-games cell-player" [class.hide]="setIndex !== 0">
+        Player
+      </div>
+      <div class="cell row-games" [class.hide-on-mobile]="setIndex !== 0">
+        Games
+      </div>
+      <div class="cell row-games" [class.hide-on-mobile]="setIndex !== 0">
+        Points
+      </div>
+    </div>
+    <div class="row">
+      <div
+        class="cell cell-player cell-player-name"
+        [class.hide-on-desktop]="setIndex !== 0"
+      >
+        You
+      </div>
+      <div
+        class="cell"
+        [class.cell-invalid-tl]="!isInputValid(setIndex)"
+        [class.disabled]="isDisabled(setIndex)"
+      >
+        <input
+          type="number"
+          (click)="$event.target.select()"
+          (focus)="onFocus(setIndex)"
+          [value]="getSetInput(MatchPlayer.One, setIndex, ScoreType.Games)"
+          (input)="
+            onSetInput(
+              MatchPlayer.One,
+              setIndex,
+              ScoreType.Games,
+              $event.target.value
+            )
+          "
+          [disabled]="isDisabled(setIndex)"
+        />
+      </div>
+      <div
+        class="cell"
+        [class.cell-invalid-tr]="!isInputValid(setIndex)"
+        [class.disabled]="isDisabled(setIndex)"
+      >
+        <input
+          type="number"
+          (click)="$event.target.select()"
+          (focus)="onFocus(setIndex)"
+          [value]="getSetInput(MatchPlayer.One, setIndex, ScoreType.Points)"
+          (input)="
+            onSetInput(
+              MatchPlayer.One,
+              setIndex,
+              ScoreType.Points,
+              $event.target.value
+            )
+          "
+          [disabled]="isDisabled(setIndex)"
+        />
+      </div>
+    </div>
+    <div class="row">
+      <div
+        class="cell cell-player cell-player-name"
+        [class.hide-on-desktop]="setIndex !== 0"
+      >
+        {{ opponent ? opponent.firstName : "" }}
+      </div>
+      <div
+        class="cell"
+        [class.cell-invalid-bl]="!isInputValid(setIndex)"
+        [class.disabled]="isDisabled(setIndex)"
+      >
+        <input
+          type="number"
+          (click)="$event.target.select()"
+          (focus)="onFocus(setIndex)"
+          [value]="getSetInput(MatchPlayer.Two, setIndex, ScoreType.Games)"
+          (input)="
+            onSetInput(
+              MatchPlayer.Two,
+              setIndex,
+              ScoreType.Games,
+              $event.target.value
+            )
+          "
+          [disabled]="isDisabled(setIndex)"
+        />
+      </div>
+      <div
+        class="cell"
+        [class.cell-invalid-br]="!isInputValid(setIndex)"
+        [class.disabled]="isDisabled(setIndex)"
+      >
+        <input
+          type="number"
+          (click)="$event.target.select()"
+          (focus)="onFocus(setIndex)"
+          [value]="getSetInput(MatchPlayer.Two, setIndex, ScoreType.Points)"
+          (input)="
+            onSetInput(
+              MatchPlayer.Two,
+              setIndex,
+              ScoreType.Points,
+              $event.target.value
+            )
+          "
+          [disabled]="isDisabled(setIndex)"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+<mat-button-toggle-group
+  name="matchWinner"
+  aria-label="Match Winner"
+  [ngModel]="winner"
+  (change)="onWinnerInput($event.value)"
+  color="primary"
+  class="ranked-toggle-group"
+>
+  <mat-button-toggle class="ranked-toggle-item" [value]="1"
+    >Win</mat-button-toggle
+  >
+  <mat-button-toggle class="ranked-toggle-item" [value]="2"
+    >Loss</mat-button-toggle
+  >
+  <mat-button-toggle class="ranked-toggle-item" [value]="0"
+    >Tie</mat-button-toggle
+  >
+</mat-button-toggle-group>

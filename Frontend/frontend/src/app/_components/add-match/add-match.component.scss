@@ -1,0 +1,61 @@
+@import "../../_styles/variables.scss";
+
+.container-match-score {
+  margin: 0 auto;
+  max-width: 600px;
+  @media (max-width: 800px) {
+    max-width: 80%;
+  }
+}
+
+.container-page-4 {
+  padding-top: 20%;
+  @media (max-width: 800px) {
+    padding-top: 20%;
+  }
+}
+
+.container-stepper {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  margin-bottom: 10%;
+}
+
+.stepper-item {
+  cursor: pointer;
+  box-sizing: border-box;
+  width: 60px;
+  line-height: 40px;
+  text-align: center;
+  border: 1px solid rgb(220, 220, 220);
+  &:hover {
+    background-color: rgb(240, 240, 240);
+  }
+  &.back {
+    align-self: flex-start;
+  }
+  &.next {
+    align-self: right;
+  }
+  &.addd {
+    width: 100px;
+    align-self: right;
+    background-color: $myPrimaryButtonColor;
+    color: $myPrimaryButtonTextColor;
+    border-color: $myPrimaryButtonBorderColor;
+    &:hover {
+      background-color: $myPrimaryButtonHoverColor;
+    }
+  }
+  &.stepper-disabled {
+    background-color: rgb(220, 220, 220) !important;
+    border-color: rgb(220, 220, 220) !important;
+    color: white !important;
+    cursor: default;
+  }
+  &.invisible {
+    visibility: hidden;
+  }
+}

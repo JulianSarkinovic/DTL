@@ -1,0 +1,78 @@
+<ng-container
+  *ngIf="{
+    user: user$ | async,
+    activePage: activePage$ | async,
+    isAdding: isAdding$ | async
+  } as vm"
+>
+  <div class="center-horizontal container-match-score">
+    <app-match-opponent-add-by-name
+      [hidden]="vm.activePage !== 1"
+      (stepEvent)="onStep($event)"
+      [(opponent)]="opponent"
+    ></app-match-opponent-add-by-name>
+    <app-match-opponent-add-by-mail
+      [hidden]="vm.activePage !== 2"
+      [(opponent)]="opponent"
+    ></app-match-opponent-add-by-mail>
+
+    <div *ngIf="vm.activePage === 3">
+      <app-match-score
+        [opponent]="opponent"
+        [mustValidate]="mustValidateSetsSubject"
+        [(sets)]="sets"
+        [(winner)]="winner"
+      ></app-match-score>
+    </div>
+
+    <div *ngIf="vm.activePage === 4" class="container-page-4">
+      <app-match-club
+        [(club)]="club"
+        [disabled]="vm.isAdding === true"
+      ></app-match-club>
+
+      <app-match-surface
+        [(surface)]="surface"
+        [disabled]="vm.isAdding === true"
+      ></app-match-surface>
+
+      <app-match-duration
+        [(duration)]="duration"
+        [disabled]="vm.isAdding === true"
+      ></app-match-duration>
+
+      <app-match-ranked
+        [(ranked)]="ranked"
+        [disabled]="vm.isAdding === true"
+      ></app-match-ranked>
+    </div>
+
+    <div class="container-stepper">
+      <div
+        class="stepper-item back"
+        [class.invisible]="vm.activePage === 1"
+        (click)="onStep(Step.Back)"
+      >
+        Back
+      </div>
+      <div
+        class="stepper-item next"
+        [class.stepper-disabled]="isStepDisabled(Step.Next)"
+        *ngIf="vm.activePage !== 4"
+        (click)="onStep(Step.Next)"
+      >
+        Next
+      </div>
+      <div
+        class="stepper-item addd"
+        [class.stepper-disabled]="
+          isStepDisabled(Step.Next) || vm.isAdding === true
+        "
+        *ngIf="vm.activePage === 4"
+        (click)="onAddMatch(vm.user!.id)"
+      >
+        Add match
+      </div>
+    </div>
+  </div>
+</ng-container>

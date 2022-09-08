@@ -1,0 +1,53 @@
+<ng-container *ngIf="{ isSubmitting: isSubmitting$ | async } as vm">
+  <div class="center-horizontal down-10 main-container">
+    <ng-container *ngIf="match$ | async as match; else loading">
+      <h1>Confirm your match</h1>
+
+      <div class="center-horizontal message">
+        <p>Your opponent has entered the following match.</p>
+        <p>
+          It was played on {{ match.duration.start | date: "fullDate" }} on
+          {{ match.surface.name | lowercase }}
+        </p>
+        <p>
+          {{ match.club?.name ? "at " : "" }} {{ match.club?.name }}. Does this
+          seem right?
+        </p>
+      </div>
+
+      <app-match-score-view
+        [match]="match"
+        [playerOneName]="match.playerOneFirstName"
+        [playerTwoName]="match.playerTwoFirstName"
+      ></app-match-score-view>
+      <div class="button-group">
+        <span>
+          <button
+            mat-flat-button
+            color="secondary"
+            class="confirm-button"
+            [disabled]="vm.isSubmitting === true"
+            (click)="onEdit(match)"
+          >
+            No
+          </button>
+        </span>
+        <span>
+          <button
+            mat-flat-button
+            color="primary"
+            class="confirm-button"
+            [disabled]="vm.isSubmitting === true"
+            (click)="onConfirm(true)"
+          >
+            Yes
+          </button>
+        </span>
+      </div>
+    </ng-container>
+
+    <ng-template #loading>
+      <mat-spinner diameter="40"></mat-spinner>
+    </ng-template>
+  </div>
+</ng-container>

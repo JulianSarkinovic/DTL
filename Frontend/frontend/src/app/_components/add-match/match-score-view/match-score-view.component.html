@@ -1,0 +1,29 @@
+<div class="container-main">
+  <div class="container-set">
+    <div class="cell cell-player cell-player-top">
+      {{ match?.duration?.start | date }}
+      {{ match?.ranked ? "" : "(casual)" }}
+    </div>
+    <div
+      class="cell cell-player cell-player-name"
+      [class.winner]="match?.winner === MatchWinner.PlayerOne"
+    >
+      {{ playerOneName }}
+    </div>
+    <div
+      class="cell cell-player cell-player-name"
+      [class.winner]="match?.winner === MatchWinner.PlayerTwo"
+    >
+      {{ playerTwoName }}
+    </div>
+  </div>
+  <div class="container-set" *ngFor="let set of match?.sets; index as setIndex">
+    <div class="cell cell-set">Set {{ setIndex + 1 }}</div>
+    <div class="cell" [class.winner]="match?.winner === MatchWinner.PlayerOne">
+      {{ set.gamesP1 }} <sup>{{ set.pointsP1 }}</sup>
+    </div>
+    <div class="cell" [class.winner]="match?.winner === MatchWinner.PlayerTwo">
+      {{ set.gamesP2 }} <sup>{{ set.pointsP2 }}</sup>
+    </div>
+  </div>
+</div>

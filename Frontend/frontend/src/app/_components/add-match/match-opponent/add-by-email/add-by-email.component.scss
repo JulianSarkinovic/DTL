@@ -1,0 +1,7 @@
+.container-main {
+  padding-bottom: 10px;
+  padding-top: 30%;
+  @media (max-width: 800px) {
+    padding-top: 35%;
+  }
+}

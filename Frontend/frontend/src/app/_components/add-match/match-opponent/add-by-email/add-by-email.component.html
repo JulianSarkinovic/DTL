@@ -1,0 +1,59 @@
+<ng-container *ngIf="{ isSubmitting: isSubmitting$ | async } as vm">
+  <form
+    class="container-main"
+    #addByEmailForm="ngForm"
+    (ngSubmit)="findOrCreate(addByEmailForm.value)"
+  >
+    <mat-form-field
+      class="width-maxed-input"
+      appearance="standard"
+      hideRequiredMarker
+    >
+      <mat-label>Opponent's first name</mat-label>
+      <input
+        type="text"
+        name="firstName"
+        ngModel
+        matInput
+        required
+        minlength="2"
+        [disabled]="vm.isSubmitting === true"
+      />
+      <mat-error>Please provide your opponent's first name.</mat-error>
+    </mat-form-field>
+    <mat-form-field
+      class="width-maxed-input"
+      appearance="standard"
+      hideRequiredMarker
+    >
+      <mat-label>Opponent's last name</mat-label>
+      <input
+        type="text"
+        name="lastName"
+        ngModel
+        matInput
+        required
+        minlength="2"
+        [disabled]="vm.isSubmitting === true"
+      />
+      <mat-error>Please provide your opponent's last name.</mat-error>
+    </mat-form-field>
+    <mat-form-field
+      class="width-maxed-input"
+      appearance="standard"
+      hideRequiredMarker
+    >
+      <mat-label>Opponent's email address</mat-label>
+      <input
+        type="email"
+        name="email"
+        ngModel
+        matInput
+        required
+        email
+        [disabled]="vm.isSubmitting === true"
+      />
+      <mat-error>Please provide your opponent's email address.</mat-error>
+    </mat-form-field>
+  </form>
+</ng-container>

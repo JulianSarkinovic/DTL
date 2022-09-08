@@ -1,0 +1,19 @@
+<mat-sidenav-container id="wrapper">
+  <!-- Todo: Put side nav in separate component and use it as the menu-->
+  <mat-sidenav #sidenav over>
+    <mat-list>
+      <mat-list-item>...</mat-list-item>
+    </mat-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content id="page">
+    <app-header></app-header>
+
+    <main>
+      <router-outlet></router-outlet>
+      <notifier-container></notifier-container>
+    </main>
+
+    <app-footer></app-footer>
+  </mat-sidenav-content>
+</mat-sidenav-container>

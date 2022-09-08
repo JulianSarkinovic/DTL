@@ -1,0 +1,24 @@
+// Info: Removes the blue outline on links and buttons when they are active/focus is set on them;
+* {
+  &:active,
+  :focus {
+    outline: none !important; // 1
+  }
+}
+
+// Info: To use our primary color for all links that are not AM elements.
+a:not(.mat-button):not(.mat-raised-button):not(.mat-fab):not(.mat-mini-fab):not([mat-list-item]) {
+  color: #3f51b5;
+}
+
+// Info: Removes arrrows on number input Chrome, Safari, Edge, Opera
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+// Info: Removes arrows on number input Firefox
+input[type="number"] {
+  -moz-appearance: textfield;
+}

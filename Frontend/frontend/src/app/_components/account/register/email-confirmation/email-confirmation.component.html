@@ -1,0 +1,28 @@
+<ng-container *ngIf="{ isSubmitting: isSubmitting$ | async } as vm">
+  <div class="center-horizontal down-10 main-container">
+    <h1>Confirm your email</h1>
+
+    <div class="center-horizontal message">
+      <p>You have recently created a new account.</p>
+      <p>To confirm your email, click confirm.</p>
+    </div>
+
+    <div class="button-group">
+      <span>
+        <button
+          mat-flat-button
+          color="primary"
+          class="confirm-button"
+          [disabled]="vm.isSubmitting === true || !userId || !token"
+          (click)="onConfirm()"
+        >
+          Confirm
+        </button>
+      </span>
+    </div>
+
+    <ng-template #loading>
+      <mat-spinner diameter="40"></mat-spinner>
+    </ng-template>
+  </div>
+</ng-container>

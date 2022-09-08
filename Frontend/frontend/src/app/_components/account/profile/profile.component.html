@@ -1,0 +1,36 @@
+<div class="main-container" *ngIf="player$ | async as player">
+  <header class="profile-container">
+    <div class="profile-photo">Photo here</div>
+    <section class="profile-information">
+      <div>14 followers 57 following</div>
+      <h2>{{ player.firstName }} {{ player.lastName }}</h2>
+      <div>Hello! My favourite soup is tomato.</div>
+    </section>
+  </header>
+
+  <hr />
+
+  <div class="content-container">
+    <div class="content-container-halve content-first-container">
+      <h2>Recent Matches</h2>
+      <ng-container *ngFor="let match of player.matches">
+        <div class="content-match">
+          <app-match-score-view
+            [match]="match"
+            [playerOneName]="match?.playerOneFirstName"
+            [playerTwoName]="match?.playerTwoFirstName"
+          >
+          </app-match-score-view>
+        </div>
+      </ng-container>
+    </div>
+    <div class="content-container-halve content-first-container">
+      <h2>Stats</h2>
+      <p>Matches played</p>
+      <p>Win rate</p>
+      <p>Head to head</p>
+      <p>Your change to win</p>
+      <p>Elo progress</p>
+    </div>
+  </div>
+</div>

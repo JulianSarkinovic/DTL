@@ -1,0 +1,26 @@
+.table-container {
+  margin: 3vh auto;
+}
+
+.table-markup {
+  background-color: transparent;
+}
+
+.mat-column-rank {
+  flex: 0 0 14%;
+}
+
+.mat-column-points {
+  flex: 0 0 10%;
+}
+
+mat-spinner {
+  margin-top: 150px;
+}
+
+.player-linked {
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+}

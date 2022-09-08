@@ -1,0 +1,74 @@
+<ng-container
+  *ngIf="{
+    loginFailedErrorMessage: loginFailedErrorMessage$ | async,
+    isSubmitting: isSubmitting$ | async
+  } as vm"
+>
+  <div class="container-main">
+    <h1>Log in</h1>
+
+    <form #loginForm="ngForm" (ngSubmit)="onLogin(loginForm)">
+      <div *ngIf="vm.loginFailedErrorMessage" class="invalid-login-message">
+        <mat-error>{{ vm.loginFailedErrorMessage }}</mat-error>
+      </div>
+
+      <mat-form-field>
+        <input
+          matInput
+          type="email"
+          placeholder="Email"
+          name="email"
+          ngModel
+          required
+          email
+          [disabled]="vm.isSubmitting === true"
+        />
+        <mat-error>Please provide a valid email address.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input
+          matInput
+          [type]="passwordHidden ? 'password' : 'text'"
+          placeholder="Password"
+          name="password"
+          ngModel
+          required
+          minlength="6"
+          [disabled]="vm.isSubmitting === true"
+        />
+        <mat-icon
+          matSuffix
+          (click)="onTogglePasswordType()"
+          class="mat-password-visibility-icon"
+        >
+          {{ passwordHidden ? "visibility" : "visibility_off" }}
+        </mat-icon>
+        <mat-error>The password must have 6 or more characters.</mat-error>
+      </mat-form-field>
+
+      <button
+        mat-flat-button
+        color="primary"
+        [disabled]="vm.isSubmitting === true || loginForm.invalid"
+      >
+        Log in
+      </button>
+
+      <div class="account-options">
+        <p>
+          Forgot your username or password?
+          <a
+            routerLink="/password-forgot"
+            [queryParams]="{ email: loginForm.value.email }"
+            >Reset it.</a
+          >
+        </p>
+        <p>
+          New to DTL?
+          <a routerLink="/register">Sign up</a>
+        </p>
+      </div>
+    </form>
+  </div>
+</ng-container>

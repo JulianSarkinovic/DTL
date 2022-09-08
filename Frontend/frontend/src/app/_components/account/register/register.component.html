@@ -1,0 +1,113 @@
+<ng-container
+  *ngIf="{
+    loginFailedErrorMessage: loginFailedErrorMessage$ | async,
+    isSubmitting: isSubmitting$ | async
+  } as vm"
+>
+  <div class="container-main">
+    <h1>Sign up</h1>
+
+    <form #registerForm="ngForm" (ngSubmit)="onRegister(registerForm)">
+      <div *ngIf="vm.loginFailedErrorMessage" class="invalid-login-message">
+        <mat-error>{{ vm.loginFailedErrorMessage }}</mat-error>
+      </div>
+
+      <mat-form-field>
+        <input
+          matInput
+          placeholder="First name"
+          name="firstName"
+          ngModel
+          required
+          minlength="2"
+          [disabled]="vm.isSubmitting === true"
+        />
+        <mat-error>Please provide your first name</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input
+          matInput
+          placeholder="Last name"
+          name="lastName"
+          ngModel
+          required
+          minlength="2"
+          [disabled]="vm.isSubmitting === true"
+        />
+        <mat-error>Please provide your last name</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input
+          matInput
+          type="email"
+          placeholder="Email"
+          name="email"
+          ngModel
+          email
+          required
+          [disabled]="vm.isSubmitting === true"
+        />
+        <mat-error>Please provide a valid email address</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input
+          matInput
+          [type]="passwordHidden ? 'password' : 'text'"
+          placeholder="Password"
+          name="password"
+          ngModel
+          required
+          minlength="6"
+          [disabled]="vm.isSubmitting === true"
+          #passwordVar="ngModel"
+        />
+        <mat-icon
+          matSuffix
+          (click)="onTogglePasswordType()"
+          class="mat-password-visibility-icon"
+        >
+          {{ passwordHidden ? "visibility" : "visibility_off" }}
+        </mat-icon>
+        <mat-error>The password must have 6 or more characters.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input
+          matInput
+          [type]="passwordHidden ? 'password' : 'text'"
+          placeholder="Password (repeat)"
+          name="confirmationPassword"
+          ngModel
+          required
+          appConfirmPassword
+          [disabled]="vm.isSubmitting === true"
+        />
+        <mat-icon
+          matSuffix
+          (click)="onTogglePasswordType()"
+          class="mat-password-visibility-icon"
+        >
+          {{ passwordHidden ? "visibility" : "visibility_off" }}
+        </mat-icon>
+        <mat-error
+          >Your confirmation password must match your password</mat-error
+        >
+      </mat-form-field>
+
+      <button
+        mat-flat-button
+        color="primary"
+        [disabled]="vm.isSubmitting === true || registerForm.invalid"
+      >
+        Sign up
+      </button>
+
+      <div class="account-options">
+        <p>Already have an account? <a routerLink="/login">Log in</a></p>
+      </div>
+    </form>
+  </div>
+</ng-container>

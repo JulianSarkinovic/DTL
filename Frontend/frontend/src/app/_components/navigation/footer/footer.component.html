@@ -1,0 +1,34 @@
+<footer>
+  <mat-toolbar>
+    <button
+      mat-button
+      routerLink="ranking"
+      class="footer-center"
+      routerLinkActive="mat-accent"
+    >
+      <mat-icon>settings</mat-icon>
+      <label class="icon-text">Home</label>
+    </button>
+
+    <button
+      mat-button
+      routerLink="add-match"
+      class="footer-center"
+      routerLinkActive="mat-accent"
+    >
+      <mat-icon>add_circle</mat-icon>
+      <label class="icon-text">Match</label>
+    </button>
+
+    <button
+      mat-button
+      routerLink="profile"
+      [queryParams]="{ id: (user$ | async)?.id }"
+      class="footer-center"
+      routerLinkActive="mat-accent"
+    >
+      <mat-icon>work_outline</mat-icon>
+      <label class="icon-text">Profile</label>
+    </button>
+  </mat-toolbar>
+</footer>

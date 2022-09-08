@@ -1,0 +1,15 @@
+// NOTIFIER: BLANCO TYPE STYLES
+
+$notifier-blanco-background-color: #fff !default;
+$notifier-blanco-font-color: rgba(0, 0, 0, 0.87) !default;
+$notifier-blanco-icon-color: rgba(0, 0, 0, 0.87) !default;
+
+.notifier__notification--blanco {
+  background-color: $notifier-blanco-background-color;
+  color: $notifier-blanco-font-color;
+
+  .notifier__notification-button-icon {
+    // 16x16 fixed size
+    fill: $notifier-blanco-icon-color;
+  }
+}

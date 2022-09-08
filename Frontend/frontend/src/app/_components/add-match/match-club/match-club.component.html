@@ -1,0 +1,49 @@
+<ng-container *ngIf="vm$ | async as vm; else loading">
+  <div>
+    <mat-form-field appearance="standard" class="width-maxed-input">
+      <mat-label>Club</mat-label>
+      <input
+        type="text"
+        matInput
+        name="clubId"
+        NgModel
+        [disabled]="disabled"
+        [ngModel]="club"
+        (input)="onClubSearch($event.target.value)"
+        [matAutocomplete]="clubs"
+      />
+      <mat-autocomplete
+        autoActiveFirstOption
+        #clubs="matAutocomplete"
+        [displayWith]="
+          vm.clubs?.length || 0 > 0 ? onClubDisplay : getClubNameInput
+        "
+        (optionSelected)="onClubSelect($event.option.value)"
+      >
+        <ng-container *ngIf="!vm.isSearchingClubs; else searching">
+          <ng-container *ngIf="vm.clubs?.length || 0 > 0; else empty">
+            <mat-option *ngFor="let club of vm.clubs" [value]="club">
+              {{ club.name }}
+            </mat-option>
+          </ng-container>
+        </ng-container>
+
+        <ng-template #empty>
+          <mat-option [value]="null" class="no-results">
+            No results. Click to add this club.
+          </mat-option>
+        </ng-template>
+
+        <ng-template #searching>
+          <mat-option>
+            <mat-spinner diameter="40"></mat-spinner>
+          </mat-option>
+        </ng-template>
+      </mat-autocomplete>
+    </mat-form-field>
+  </div>
+</ng-container>
+
+<ng-template #loading>
+  <mat-spinner diameter="40"></mat-spinner>
+</ng-template>

@@ -1,0 +1,1 @@
+Message received from the *HTML.txt template. Your link {0}.

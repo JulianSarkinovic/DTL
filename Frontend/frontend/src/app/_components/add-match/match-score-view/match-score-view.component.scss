@@ -1,0 +1,74 @@
+$row-set: rgb(190, 190, 190);
+$row-games: rgb(245, 245, 245);
+$cell-border: rgb(230, 230, 230);
+$active: rgb(255, 255, 255);
+$inactive: rgb(250, 250, 250);
+$invalid-cell: rgb(255, 242, 239);
+$invalid-border: rgb(255, 187, 170);
+
+div {
+  box-sizing: border-box;
+  color: rgb(70, 70, 70);
+}
+
+#logo {
+  height: 24px;
+}
+
+.container-main {
+  margin: 0 auto;
+  max-width: 100%;
+  min-width: 280px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: stretch;
+}
+
+.container-set {
+  display: flex;
+  flex-flow: column;
+  justify-content: stretch;
+  flex-grow: 1;
+}
+
+.cell {
+  border: 1px solid $cell-border;
+  background-color: $active;
+  flex-grow: 1;
+  flex-basis: 50px;
+  text-align: center;
+  max-height: 32px;
+  min-width: 50px;
+  &.winner {
+    font-weight: 550;
+  }
+}
+
+.cell-set {
+  flex-grow: 2;
+  flex-basis: 100px;
+  padding-top: 5px;
+  color: white;
+  background-color: $row-set !important;
+}
+
+.cell-player {
+  flex-grow: 2;
+  flex-basis: 100px;
+  min-width: 120px;
+  text-align: left;
+  align-items: center;
+  padding-left: 5px;
+}
+
+.cell-player-top {
+  background-color: $row-set;
+  padding-top: 5px;
+  color: white;
+}
+
+.cell-player-name {
+  padding-top: 7px;
+  overflow-x: auto;
+  line-height: initial;
+}

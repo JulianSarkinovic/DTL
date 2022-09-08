@@ -1,0 +1,18 @@
+.footer-center {
+  flex: 1 1 auto;
+  text-align: center;
+}
+
+#add-button {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.icon-text {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.8em;
+  white-space: nowrap;
+  line-height: 0.65em;
+  padding-bottom: 0.65em;
+}

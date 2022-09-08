@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+	<ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DikkeTennisLijst.Core\DikkeTennisLijst.Core.csproj" />
+    <ProjectReference Include="..\DikkeTennisLijst.Infrastructure\DikkeTennisLijst.Infrastructure.csproj" />
+    <ProjectReference Include="..\DikkeTennisLijst.WebAPI\DikkeTennisLijst.WebAPI.csproj" />
+  </ItemGroup>
+
+</Project>

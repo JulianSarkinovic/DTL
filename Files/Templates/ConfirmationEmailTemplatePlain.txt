@@ -1,0 +1,1 @@
+Message received from the *plain.txt template. Your link {0}.

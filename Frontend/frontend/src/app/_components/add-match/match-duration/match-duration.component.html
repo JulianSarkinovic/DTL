@@ -1,0 +1,25 @@
+<div>
+  <div>
+    <mat-form-field appearance="standard" class="width-maxed-input">
+      <mat-label>Date</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker"
+        (click)="picker.open()"
+        [formControl]="dateForm"
+        (dateChange)="onDurationEmit()"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker touchUi #picker></mat-datepicker>
+    </mat-form-field>
+  </div>
+
+  <div class="time-slider">
+    <ngx-slider
+      [(value)]="start"
+      [(highValue)]="end"
+      [options]="options"
+      (userChange)="onDurationEmit()"
+    ></ngx-slider>
+  </div>
+</div>

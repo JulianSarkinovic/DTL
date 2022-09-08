@@ -1,0 +1,56 @@
+<div class="container-main">
+  <ng-container
+    *ngIf="{
+      players: players$ | async | filterUser,
+      isSearching: isSearching$ | async
+    } as vm"
+  >
+    <ng-container *ngIf="vm.players as players; else loading">
+      <mat-form-field
+        appearance="standard"
+        class="width-maxed-input"
+        hideRequiredMarker
+      >
+        <mat-label>Who did you play?</mat-label>
+        <input
+          type="text"
+          matInput
+          required
+          [ngModel]="opponent"
+          (input)="onSearch($event.target.value)"
+          [matAutocomplete]="opponentAutoComplete"
+        />
+        <mat-autocomplete
+          (optionSelected)="onOpponentSelect($event.option.value)"
+          [displayWith]="onOpponentDisplay"
+          autoActiveFirstOption
+          #opponentAutoComplete="matAutocomplete"
+        >
+          <ng-container *ngIf="vm.isSearching === false; else searching">
+            <ng-container *ngIf="vm.players.length > 0; else empty">
+              <mat-option *ngFor="let player of players" [value]="player">
+                {{ player.firstName }} {{ player.lastName }}
+              </mat-option>
+            </ng-container>
+          </ng-container>
+
+          <ng-template #empty>
+            <mat-option [value]="null" id="no-results">
+              No results. Click to add by email.
+            </mat-option>
+          </ng-template>
+
+          <ng-template #searching>
+            <mat-option>
+              <mat-spinner diameter="40"></mat-spinner>
+            </mat-option>
+          </ng-template>
+        </mat-autocomplete>
+      </mat-form-field>
+    </ng-container>
+  </ng-container>
+
+  <ng-template #loading>
+    <mat-spinner diameter="40"></mat-spinner>
+  </ng-template>
+</div>

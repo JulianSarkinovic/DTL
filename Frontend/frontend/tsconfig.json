@@ -1,0 +1,38 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "es2020",
+    "lib": ["es2018", "dom"],
+    "paths": {
+      "@assets/*": ["src/assets/*"],
+      "@components/*": ["src/app/_components/*"],
+      "@enums/*": ["src/app/_shared/enums/*"],
+      "@entities/*": ["src/app/_shared/entities/*"],
+      "@interfaces/*": ["src/app/_shared/interfaces/*"],
+      "@environments/*": ["src/app/environments/*"],
+      "@services/*": ["src/app/_shared/services/*"],
+      "@shared/*": ["src/app/_shared/*"],
+      "@styles/*": ["src/app/_styles/*"]
+    }
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true,
+    "strictDomEventTypes": false
+  }
+}

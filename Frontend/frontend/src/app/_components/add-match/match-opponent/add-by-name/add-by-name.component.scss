@@ -1,0 +1,10 @@
+.container-main {
+  padding-top: 45%;
+  @media (max-width: 800px) {
+    padding-top: 50%;
+  }
+}
+
+#no-results {
+  color: #646464;
+}

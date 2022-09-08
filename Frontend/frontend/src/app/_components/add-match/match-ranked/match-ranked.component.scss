@@ -1,0 +1,40 @@
+.ranked-container {
+  font-size: 15px;
+  color: rgb(114, 114, 114);
+  margin-top: 14px;
+  margin-bottom: 28px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+span {
+  margin-right: 8px;
+}
+
+::ng-deep {
+  .mat-slide-toggle-bar {
+    height: 20px !important;
+    width: 52px !important;
+  }
+}
+
+::ng-deep {
+  .mat-slide-toggle-thumb {
+    height: 28px !important;
+    width: 28px !important;
+  }
+}
+
+::ng-deep {
+  .mat-slide-toggle.mat-checked .mat-slide-toggle-thumb-container {
+    transform: translate3d(30px, 0, 0) !important;
+  }
+}
+
+::ng-deep {
+  .mat-slide-toggle-thumb-container {
+    width: 12px !important;
+    height: 12px !important;
+    top: -4px !important;
+  }
+}

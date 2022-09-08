@@ -1,0 +1,12 @@
+<div class="ranked-container">
+  <mat-slide-toggle
+    color="primary"
+    [checked]="ranked !== null ? ranked : true"
+    (change)="onIsRanked($event)"
+    labelPosition="before"
+    size="large"
+    [disabled]="disabled"
+  >
+    <span>Ranked</span>
+  </mat-slide-toggle>
+</div>
